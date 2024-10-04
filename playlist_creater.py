@@ -8,7 +8,7 @@ def findArtist(artist_name, playlist_id):
     artists = results['artists']['items']
 
     if not artists:
-        print("Artist not found.")
+        print(f"{artist_name} not found.")
     else:
         artist_id = artists[0]['id']  # Take the first artist if multiple are found
 
@@ -32,7 +32,7 @@ sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=os.getenv('SPOTIPY_CLIE
 
 
 user_id = sp.me()['id']  # Get current user ID
-usr_check = input(f"is this your user id {user_id}: Y/N")
+usr_check = input(f"is this your user id {user_id}: Y/N\n")
 print("Wrong account fix env") or sys.exit(1) if usr_check != "Y" else print("Sweet lets make your playlist")
 
 playlist_name = input('Enter Playlist Name: ')  # Name of the playlist
@@ -46,29 +46,36 @@ playlist_names = {playlist['name'] for playlist in playlists['items']}
 # Checks if the playlist name is already taken
 print(input("Playlist already exist\n Give another name: ") if playlist_name in playlist_names else "Name saved.")
 playlist_description = input('Enter your playlist Description: ') # Description of playlist
-
 # Create playlist
-new_playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=True, description=playlist_description)
+new_playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=False, description=playlist_description)
 
-Artist = schedule = [
-        "Afrojack", 
+schedule = [
+        "Afrojack", #AFROJACK + STEVE AOKI
         "Steve Aoki", 
         "Alison Wonderland", 
         "Illenium",
-        "CrankDat", 
+        "CrankDat", #CrankDat + Riot Ten
         "Riot Ten", 
-        "Ghastly, Ghengar", 
+        "Ghastly, Ghengar", #Ghastly, Ghengar
         "Level Up", 
         "Hvdes", 
         "Anger Fist",
-        "Softest Chill", 
+        "Softest Chill", #Softest Hard, Chyl 
         "Trivecta", 
-        "Adventure Clue", 
+        "Adventure Club", 
         "Martin Garrix", 
         "Seven Lion"
 
 ]
 
+# For every artist try to find them and add their top 5 tracks
+for artist in schedule: 
+    findArtist(artist, new_playlist['id'])
+
 
 print(f"Playlist created: {new_playlist['name']}")
+
+# Things to Add:
+# - Add the songs that are collaborated with the two for B2B
+# - Add their most recent three songs
 
