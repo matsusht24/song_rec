@@ -43,30 +43,13 @@ playlists = sp.current_user_playlists()
 # Create a set of playlist names for quick lookup
 playlist_names = {playlist['name'] for playlist in playlists['items']}
 
-# Checks if the playlist name is already taken
+# Checks if the playlist name is already taken if it is it will load the following
 print(input("Playlist already exist\n Give another name: ") if playlist_name in playlist_names else "Name saved.")
 playlist_description = input('Enter your playlist Description: ') # Description of playlist
 # Create playlist
 new_playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=False, description=playlist_description)
 
-schedule = [
-        "Afrojack", #AFROJACK + STEVE AOKI
-        "Steve Aoki", 
-        "Alison Wonderland", 
-        "Illenium",
-        "CrankDat", #CrankDat + Riot Ten
-        "Riot Ten", 
-        "Ghastly, Ghengar", #Ghastly, Ghengar
-        "Level Up", 
-        "Hvdes", 
-        "Anger Fist",
-        "Softest Chill", #Softest Hard, Chyl 
-        "Trivecta", 
-        "Adventure Club", 
-        "Martin Garrix", 
-        "Seven Lion"
-
-]
+schedule = ['Seven Lions', 'Crystal Skies', 'Far Out', 'Gem & Tauri', 'If Found', 'KEPIK', 'Kill The Noise', 'OddKidOut', 'SENZA', 'STAR SEED', 'TINYKVT']
 
 # For every artist try to find them and add their top 5 tracks
 for artist in schedule: 
