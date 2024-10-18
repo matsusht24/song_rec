@@ -50,6 +50,9 @@ playlist_description = input('Enter your playlist Description: ') # Description 
 # Create playlist
 new_playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=False, description=playlist_description)
 
+###############################################################################
+# Change the following to update the following variable to artist you wanna add
+###############################################################################
 schedule = ['Denis Sulta','HVDES','Lady Faith', 'Level Up', 'Afrojack', 'Steve Aoki', 'Ghengar', 'Wooli', 'Alison Wonderland', 'Illenium', 'Crankdat', 'Riot Ten', 'RayRay', 'Gem & Tauri', 'Softest CHYL', 'Softest Hard', 'CHYL', 'FrostTop', 'RemK', 'Trivecta', 'Adventure Club', 'Seven Lions', 'Martin Garrix']
 
 
