@@ -2,7 +2,7 @@ import spotipy
 import os
 from spotipy.oauth2 import SpotifyOAuth
 import sys
-
+from dotenv import load_dotenv
 def findArtist(artist_name, playlist_id):
     results = sp.search(q=artist_name, type='artist')
     artists = results['artists']['items']
@@ -15,16 +15,17 @@ def findArtist(artist_name, playlist_id):
         # Fetch the top tracks for the artist
         top_tracks = sp.artist_top_tracks(artist_id, country='US')  # You can specify a different country if desired
 
-        # Get the track IDs of the top 5 tracks
-        track_ids = [track['id'] for track in top_tracks['tracks'][:5]]
+        # Get the track IDs of the top 10 tracks
+        track_ids = [track['id'] for track in top_tracks['tracks'][:10]]
 
         # Add the top tracks to the playlist
         if track_ids:
             sp.playlist_add_items(playlist_id, track_ids)
-            print(f"Added top 5 tracks of '{artist_name}' to the playlist.")
+            print(f"Added top 10 tracks of '{artist_name}' to the playlist.")
         else:
-            print("No tracks found for the artist.")
+            print(f"No tracks found for the artist: {artist_name}")
 
+load_dotenv()
 sp = spotipy.Spotify(auth_manager=SpotifyOAuth(client_id=os.getenv('SPOTIPY_CLIENT_ID'),
                                                client_secret=os.getenv('SPOTIPY_CLIENT_SECRET'),
                                                redirect_uri=os.getenv('SPOTIPY_REDIRECT_URI'),
@@ -49,7 +50,8 @@ playlist_description = input('Enter your playlist Description: ') # Description 
 # Create playlist
 new_playlist = sp.user_playlist_create(user=user_id, name=playlist_name, public=False, description=playlist_description)
 
-schedule = ['Seven Lions', 'Crystal Skies', 'Far Out', 'Gem & Tauri', 'If Found', 'KEPIK', 'Kill The Noise', 'OddKidOut', 'SENZA', 'STAR SEED', 'TINYKVT']
+schedule = ['Denis Sulta','HVDES','Lady Faith', 'Level Up', 'Afrojack', 'Steve Aoki', 'Ghengar', 'Wooli', 'Alison Wonderland', 'Illenium', 'Crankdat', 'Riot Ten', 'RayRay', 'Gem & Tauri', 'Softest CHYL', 'Softest Hard', 'CHYL', 'FrostTop', 'RemK', 'Trivecta', 'Adventure Club', 'Seven Lions', 'Martin Garrix']
+
 
 # For every artist try to find them and add their top 5 tracks
 for artist in schedule: 
